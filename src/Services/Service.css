@@ -21,22 +21,22 @@
 	position: relative;
 	overflow: hidden;
 	text-decoration: none;
-	color: white;
+	color: black;
 	display: block;
 }
 
 .project__item:not(:last-child) {
-	border-bottom: 0.5px solid rgb(207, 207, 207);
+	border-bottom: 0.5px solid rgb(11, 5, 5);
 }
 
 /* Orange hover effect */
 .project__item:hover {
-	color: white;
+	color: black;
 }
 
 .project__item:hover .project__title,
 .project__item:hover .project__desc {
-	color: white;
+	color: rgba(0, 0, 0, 0.569);
 }
 
 @media (any-hover: hover) {
@@ -61,7 +61,7 @@
 .project__title {
 	font-size: clamp(20px, 4vw, 40px);
 	transition: color 0.3s, transform 0.3s;
-    font-weight: 700;
+	font-weight: 700;
 }
 
 .project__desc {
@@ -76,7 +76,7 @@
 /* Plus icon styling */
 .plus-icon {
 	font-size: 24px;
-	color: white;
+	color: black;
 	transition: transform 0.3s ease;
 }
 
@@ -113,7 +113,7 @@
 	overflow: hidden;
 	border-radius: 12px;
 	box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-	
+
 }
 
 .project-modal__list {
@@ -471,6 +471,7 @@
 	from {
 		opacity: 0;
 	}
+
 	to {
 		opacity: 1;
 	}
@@ -481,6 +482,7 @@
 		opacity: 0;
 		transform: translateY(40px) scale(0.95);
 	}
+
 	to {
 		opacity: 1;
 		transform: translateY(0) scale(1);
@@ -518,20 +520,20 @@
 		padding: 2rem 1.5rem;
 	}
 
-	.project__title{
-	   font-size: 0.7rem;
+	.project__title {
+		font-size: 0.7rem;
 	}
-	
+
 	.description-modal-title {
 		font-size: 1.8rem;
 		padding-right: 35px;
 	}
-	
+
 	.description-modal-text {
 		font-size: 0.95rem;
 		line-height: 1.7;
 	}
-	
+
 	.modal-link-btn {
 		padding: 0.9rem 1.8rem;
 		font-size: 1rem;
@@ -539,11 +541,11 @@
 		width: 100%;
 		justify-content: center;
 	}
-	
+
 	.modal-link-container {
 		align-items: center;
 	}
-	
+
 	.close-modal-btn {
 		top: 15px;
 		right: 15px;
@@ -551,11 +553,11 @@
 		height: 40px;
 		font-size: 1.2rem;
 	}
-	
+
 	.service-tags {
 		gap: 0.5rem;
 	}
-	
+
 	.service-tag {
 		padding: 0.3rem 1rem;
 		font-size: 0.8rem;
@@ -566,15 +568,15 @@
 	.modal-content-wrapper {
 		padding: 1.5rem 1.2rem;
 	}
-	
+
 	.description-modal-title {
 		font-size: 1.5rem;
 	}
-	
+
 	.description-modal-text {
 		font-size: 0.9rem;
 	}
-	
+
 	.modal-link-btn {
 		padding: 0.8rem 1.5rem;
 		font-size: 0.95rem;
@@ -741,7 +743,7 @@
 	}
 
 	.col-content-wrapper {
-		padding: 1rem;
+		padding: 1.5rem;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
@@ -763,7 +765,7 @@
 		left: 0;
 		width: 100%;
 		height: 100%;
-		padding: 2rem;
+		padding: 3rem;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;

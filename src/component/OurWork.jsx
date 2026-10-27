@@ -26,7 +26,8 @@ const OurWork = () => {
   const duplicatedImages = [...images, ...images, ...images]; // Triple for seamless loop
 
   return (
-    <div className='bg-black w-full h-auto py-10 px-4 md:px-10'>
+    
+    <div className='bg-[#040707] w-full h-auto md:py-10 py-5 px-4 md:px-10'>
       <h2 className='md:text-4xl text-3xl text-white font-droid text-center mb-16'>
         Gallery
       </h2>
@@ -72,10 +73,6 @@ const OurWork = () => {
           ))}
         </motion.div>
       </div>
-      
-      <p className='text-center text-xl md:text-2xl my-16 max-w-3xl mx-auto text-white'>
-        An initiative where freedom thrives through creative actions and <span className='text-[#9a1d20] font-semibold'>resilience</span>
-      </p>
     </div>
   );
 };

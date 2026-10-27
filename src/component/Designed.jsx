@@ -66,7 +66,7 @@ const Designed = () => {
         {
           id: 1,
           name: 'Peace Direct ',
-          role: 'Head of Community @Goldman',
+          role: '',
           content: 'Working with Freedom Studio on ‘The Problem with Partnerships’ was more than a production experience; it was a process of deep listening and co-creation between our team. They held the complexity of the topic with care, helped shape the production work with careful detailing and brought our vision to life through effective sound and design. Their ability to combine our story with digital production gave our message the resonance it deserved. ',
           image: peacedirect
         },
@@ -118,7 +118,7 @@ const Designed = () => {
 
   return (
     <>
-     <section className="bg-white relative md:py-10" ref={ref}>
+     <section className="bg-[#F9F6EE] relative md:py-10" ref={ref}>
       <div className="container mx-auto px-4 pt-12">
         <h2 className='text-center md:text-4xl text-3xl font-droid'>Client Testimonial</h2>
         <motion.h2 

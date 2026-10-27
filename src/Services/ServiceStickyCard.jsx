@@ -4,8 +4,35 @@ import colimg1 from "../assets/Gallery12.jpeg";
 import colimg2 from "../assets/About8.jpeg";
 
 import './Service.css'
-// import colimg3 from "../../assets/cap3-square.jpg";
 import { useState } from "react";
+
+const Col1Tags = [
+    "Quantitative and Qualitative Research",
+    "Campaign Co-creation & Facilitation",
+    "Policy & Governance Design",
+    "Program and Advocacy Planning",
+    "Facilitating Strategic Retreats",
+    "Co-developing Theories of Change",
+    "Institution Building Support"
+];
+
+const Col3CreativeTags = [
+    "Campaign Storytelling",
+    "Brand Identity & Visual Design",
+    "Multimedia Production",
+    "Video & Animation Production",
+    "Graphic & Illustration Design",
+    "Art Services",
+    "Social Media Strategy"
+];
+
+const Col3DigitalTags = [
+    "Website & Platform Development",
+    "Digital Ecosystem Strategy",
+    "User Experience (UX/UI) Design",
+    "Mapping & Visualization Tools",
+    "Online Learning Spaces"
+];
 
 const ServiceStickyCard = () => {
 
@@ -15,7 +42,7 @@ const ServiceStickyCard = () => {
         gsap.registerPlugin(ScrollTrigger, SplitText);
 
         // 1️⃣ Split text lines once DOM ready
-        const textElements = document.querySelectorAll(".col-3 h1, .col-3 p");
+        const textElements = document.querySelectorAll(".col-3 h1, .col-3 p.desc");
         textElements.forEach((element) => {
             const split = new SplitText(element, { type: "lines", linesClass: "line" });
             split.lines.forEach((line) => {
@@ -28,7 +55,7 @@ const ServiceStickyCard = () => {
 
         // 2️⃣ Initial state
         gsap.set(".col-3 .col-content-wrapper .line span", { yPercent: 0 });
-        gsap.set(".col-3 .col-content-wrapper-2 .line span", { yPercent: -125 });
+        gsap.set(".col-3 .col-content-wrapper-2 .line span", { yPercent: -200 });
 
         // 3️⃣ Controlled phase logic using timeline (simpler and stable)
         const tl = gsap.timeline({
@@ -58,7 +85,7 @@ const ServiceStickyCard = () => {
         // PHASE 2: Switch col-2 -> col-3 content
         tl.to(".col-2", { opacity: 0, scale: 0.8, duration: 0.8 })
             .to(".col-3 .col-content-wrapper .line span", {
-                yPercent: -125,
+                yPercent: -200,
                 duration: 0.8,
             }, "<")
         tl.to(".col-3", { x: "0%", duration: 0.8 }, "-=0.8")
@@ -70,33 +97,41 @@ const ServiceStickyCard = () => {
             }, "<");
 
         return () => {
-            ScrollTrigger.getAll().forEach((st) => st.kill());
+            ScrollTrigger.getAll().forEach((st) => st.kill
+                ());
             tl.kill();
         };
     });
 
     return (
-       
+
         <section className="sticky-cols pt-10 w-screen h-dvh overflow-hidden bg-[#040707]">
             <div className="sticky-cols-wrapper relative w-full h-screen">
                 <div className="col col-1">
                     <div className="col-content">
                         <div className="col-content-wrapper">
-                            <div className="space-y-20">
-                                 <div className="md:w-[80%]">
-                            <h1 className="md:text-5xl text-lg  font-droid text-[#b1a696] font-bold leading-auto md:w-[80%]">Strategic Design
-                                {/* <br />
+                            <div className="space-y-10">
+                                <div className="md:w-[90%]">
+                                    <h1 className="md:text-6xl text-xl  font-droid text-[#b1a696] font-bold leading-auto md:w-[80%]">Strategic <br></br> Design
+                                        {/* <br />
                                 through—the wide
                                 <br />
                                 panoramic glass
                                 <br /> */}
-                                {/* window */}
-                            </h1>
+                                        {/* window */}
+                                    </h1>
+                                </div>
+
+                                <p className="desc font-medium md:text-lg text-sm">
+                                    We support organizations  in creating internal clarity and external impact by co-creating cultures, strategies, and policies that are grounded in purpose. Our work spans from design thinking and participatory research to systems mapping and advocacy planning. Whether facilitating strategic retreats, building institutional frameworks, or co-developing theories of change, we enable organizations to navigate complexity, lead with intention, and design sustainable pathways for transformation
+                                </p>
+                                <div className="flex items-center gap-3 flex-wrap">
+                                    {Col1Tags.map((tag, idx) => (
+                                        <p key={idx} className="text-[10px] sm:text-xs md:text-sm font-medium tracking-wide whitespace-nowrap border text-white border-white/40 rounded-full px-3 py-1">{tag}</p>
+                                    ))}
+                                </div>
+
                             </div>
-                             <p className="font-medium md:text-lg text-sm">
-                                We support organizations  in creating internal clarity and external impact by co-creating cultures, strategies, and policies that are grounded in purpose. Our work spans from design thinking and participatory research to systems mapping and advocacy planning. Whether facilitating strategic retreats, building institutional frameworks, or co-developing theories of change, we enable organizations to navigate complexity, lead with intention, and design sustainable pathways for transformation
-                             </p>
-                             </div>
                             <div className="col-content-para flex items-center gap-4 justify-between">
                                 <div className="flex items-center gap-0 justify-center">
                                     <h3 className="border-1 px-4 py-2 rounded-full text-[#aaa091]">1</h3>
@@ -125,20 +160,31 @@ const ServiceStickyCard = () => {
                 </div>
                 <div className="col col-3">
                     <div className="col-content-wrapper">
-                        <div className="space-y-20">
-                             <div className="md:w-[80%]">
-                        <h1 className="md:text-5xl text-lg font-droid font-bold leading-auto md:w-[80%]">Creative Communication
-                            {/* <br />
+                        <div className="space-y-10">
+                            <div className="md:w-[90%]">
+                                <h1 className="md:text-6xl text-xl font-droid font-bold leading-auto md:w-[80%]">Creative <br></br> Communication
+                                    {/* <br />
                             through—the wide
                             <br />
                             panoramic glass
                             <br />
                             window */}
-                        </h1>
-                        </div>
-                            <p className="font-medium md:text-lg text-sm">
-                               We craft communication that touches people, not just to watch or read, but to engage, act, and transform. From powerful campaign storytelling to immersive cultural productions, we bring ideas to life through multimedia, illustrations, video, animation, art curation, and public installations. Whether developing brand identities, designing exhibitions, or amplifying messages on social media, we blend art and advocacy to create stories that resonate and inspire action.
-                             </p>
+                                </h1>
+                            </div>
+                            <p className="desc font-medium md:text-lg text-sm">
+                                We craft communication that touches people, not just to watch or read, but to engage, act, and transform. From powerful campaign storytelling to immersive cultural productions, we bring ideas to life through multimedia, illustrations, video, animation, art curation, and public installations. Whether developing brand identities, designing exhibitions, or amplifying messages on social media, we blend art and advocacy to create stories that resonate and inspire action.
+                            </p>
+                            <div className="tags flex items-center gap-3 flex-wrap">
+                                {Col3CreativeTags.map((tag, idx) => (
+                                    <div key={idx} className="line">
+                                        <span>
+                                            <p className="text-[10px] sm:text-xs md:text-sm font-medium tracking-wide whitespace-nowrap border text-white border-white/40 rounded-full px-3 py-1">{tag}</p>
+                                        </span>
+                                    </div>
+                                ))}
+                            </div>
+
+
                         </div>
                         <div className={`col-content-para flex items-center gap-4 justify-between ${reveal ? "ml-0" : "ml-6"}`}>
                             <div className="flex items-center gap-0 justify-center">
@@ -152,27 +198,36 @@ const ServiceStickyCard = () => {
                         </div>
                     </div>
                     <div className="col-content-wrapper-2">
-                        <div className="space-y-20">
-                            <div className="md:w-[80%]">
-                        <h1 className="md:text-5xl text-lg font-droid font-bold leading-auto">Digital Transformation
-                          
-                            {/* <br />
+                        <div className="space-y-10">
+                            <div className="md:w-[90%]">
+                                <h1 className="md:text-6xl text-xl font-droid font-bold leading-auto">Digital <br></br> Transformation
+
+                                    {/* <br />
                             through—the wide
                             <br />
                             panoramic glass
                             <br />
                             window */}
-                        </h1>
-                          </div>
-                         <p className="font-medium md:text-lg text-sm">
-                              We create digital ecosystems that enable organizations to flourish in an ever evolving world. Our approach combines online platform development with UX/UI design, civic tech innovation, and data-driven tools to support learning, collaboration, and campaigning. From interactive engagement to secure online spaces, we ensure accessibility, safety, and strategic alignment so that partners digital presence is transformed.
-                             </p>
-                             </div>
-                        <div className="col-content-para flex items-center gap-4 justify-between">
-                            <div className="flex items-center gap-0 justify-center">
-                                {/* <h3 className="border-1 px-3 py-1 rounded-full text-[#aaa091]">3</h3>
-                                <h3 className="border-1 px-3 py-1 rounded-full text-[#524e4b]">3</h3> */}
+                                </h1>
                             </div>
+                            <p className="desc font-medium md:text-lg text-sm">
+                                We create digital ecosystems that enable organizations to flourish in an ever evolving world. Our approach combines online platform development with UX/UI design, civic tech innovation, and data-driven tools to support learning, collaboration, and campaigning. From interactive engagement to secure online spaces, we ensure accessibility, safety, and strategic alignment so that partners digital presence is transformed.
+                            </p>
+                            <div className="flex items-center gap-3 flex-wrap">
+                                {Col3DigitalTags.map((tag, idx) => (
+                                    <div key={idx} className="line">
+                                        <span>
+                                            <p className="text-[10px] sm:text-xs md:text-sm font-medium tracking-wide whitespace-nowrap border text-white border-white/40 rounded-full px-3 py-1">{tag}</p>
+                                        </span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="col-content-para flex items-center gap-4 justify-between">
+                            {/* <div className="flex items-center gap-0 justify-center">
+                                <h3 className="border-1 px-3 py-1 rounded-full text-[#aaa091]">3</h3>
+                                <h3 className="border-1 px-3 py-1 rounded-full text-[#524e4b]">3</h3>
+                            </div> */}
                             {/* <p className={`text-[12px] font-medium  ${!reveal ? "mr-0" : "mr-6"}`}> Get closer to the desert nature than ever before
                                 <br />
                                 and admire this unique, breathtaking landscape.

@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import image1 from '../assets/Knowledge Development.jpeg';
 import image2 from '../assets/Strategy Building.jpeg';
 import image3 from '../assets/Digital Communication.jpeg';
-import bulb from '../assets/bulb.png';
-import world from '../assets/Countries.png'
-import drop from '../assets/4.png'
-import hand from '../assets/5.png'
 import './Flip.css'
 import { useNavigate } from 'react-router-dom';
+import WhoWeAre from './WhoWeAre';
 
 
 
@@ -35,12 +32,8 @@ const Expertise = () => {
                 'Video & Animation Production',
                    'Graphic & Illustration Design',
                    'Art Services',
-                    'Interactive Installations',
-                    'Cultural Production',
-                    'Festival Organization',
-                    'Exhibition Design',
                     'Social Media Strategy',
-                     'Message Development']
+                     ]
         },
         {
             image: image3,
@@ -62,32 +55,32 @@ const Expertise = () => {
         }
     ];
 
-    const data2 = [
-      {
-        icon: bulb,
-        front: 'Listen',
-        back: 'We begin by listening, deeply and respectfully, to communities, clients, cultures, and contexts. This grounds everything we build in real needs and lived experiences.',
-        bgColor: '#151e3f'
-      },
-      {
-        icon: world,
-        front: 'Feel',
-        back: 'We design with care. By centering emotional wellbeing and collective healing, we ensure our work nourishes people, clients and communities as much as it delivers results.',
-        bgColor: '#008080'
-      },
-      {
-        icon: drop,
-        front: 'Create',
-        back: 'We turn insight into bold ideas, visual narratives, and digital tools that spark imagination, shift narratives, and strengthen systems.',
-        bgColor: '#9a1d20'
-      },
-      {
-        icon: hand,
-        front: 'Impact',
-        back: 'We ensure our actions create lasting change, foster growth for our partners, strengthen communities, and build momentum for movements.',
-        bgColor: '#bb3e03'
-      }
-    ];
+    // const data2 = [
+    //   {
+    //     icon: bulb,
+    //     front: 'Listen',
+    //     back: 'We begin by listening, deeply and respectfully, to communities, clients, cultures, and contexts. This grounds everything we build in real needs and lived experiences.',
+    //     bgColor: '#151e3f'
+    //   },
+    //   {
+    //     icon: world,
+    //     front: 'Feel',
+    //     back: 'We design with care. By centering emotional wellbeing and collective healing, we ensure our work nourishes people, clients and communities as much as it delivers results.',
+    //     bgColor: '#008080'
+    //   },
+    //   {
+    //     icon: drop,
+    //     front: 'Create',
+    //     back: 'We turn insight into bold ideas, visual narratives, and digital tools that spark imagination, shift narratives, and strengthen systems.',
+    //     bgColor: '#9a1d20'
+    //   },
+    //   {
+    //     icon: hand,
+    //     front: 'Impact',
+    //     back: 'We ensure our actions create lasting change, foster growth for our partners, strengthen communities, and build momentum for movements.',
+    //     bgColor: '#bb3e03'
+    //   }
+    // ];
     
 
 const sWordParts = ['TRATEGY ', 'TORY ', 'YSTEMS ', 'OULS ']; 
@@ -133,19 +126,21 @@ const sWordParts = ['TRATEGY ', 'TORY ', 'YSTEMS ', 'OULS '];
 
     return (
         <div className="relative bg-white w-full overflow-hidden">
-            <div className='md:px-16 lg:px-28 px-4 md:py-10 py-5'>
+
+          <WhoWeAre/>
+            {/* <div className='md:px-10 px-5 md:py-10 py-5 space-y-5'>
             <h2 
-                    className='text-center md:text-4xl text-3xl font-droid text-gray-800'
+                    className=' md:text-4xl text-center text-3xl font-droid text-gray-800'
                 >
                    Who We Are 
                 </h2>
-            <div className="flex justify-center items-center mt-4">
-  <div className="w-full md:w-3/4 h-auto border-0 rounded-lg p-4">
-  <p className='text-base font-medium text-center'>Artists. Innovators. Experimenters. Digital Media Pros. Organizers. Creatives. Tech Freaks. Campaigners. Advocates. Activists. Healers. </p>
+            <div className="">
+  <div className="flex justify-center items-center">
+  <p className='text-3xl font-semibold text-center max-w-4xl' >Artists. Innovators. Experimenters. Digital Media Pros. Organizers. Creatives. Tech Freaks. Campaigners. Advocates. Activists. Healers. </p>
 
            
   </div>
-</div>
+</div> */}
 {/*      
      <h3 className='font-droid text-xl text-center md:mt-3 mt-1'>The Freedom Formula:</h3>
       <p className='text-center text-xl font-medium opacity-85'>Our signature approach weaves together four driving forces: </p> */}
@@ -201,8 +196,12 @@ const sWordParts = ['TRATEGY ', 'TORY ', 'YSTEMS ', 'OULS '];
 
 
 
-    </div>
-            <div className='py-5 md:py-16 px-4'>
+  
+
+
+
+
+            <div className='py-7 md:py-12 px-4 bg-[#F9F6EE]'>
                 <h2 
                     className='text-center md:text-4xl text-3xl font-droid text-gray-800'
                 >
@@ -210,28 +209,35 @@ const sWordParts = ['TRATEGY ', 'TORY ', 'YSTEMS ', 'OULS '];
                 </h2>
                   <div className="mt-2 flex justify-center p-4 text-xl">
               <div className="flex items-baseline">
-                <span className="font-droid font-medium text-2xl">We connect <span className='text-[#9a1d20] font-droid'>S</span></span>
-                <span className="font-droid font-medium text-2xl text-black relative">
+                <span className="font-droid font-medium text-3xl">We connect <span className='text-[#9a1d20] font-droid'>S</span></span>
+                <span className="font-droid font-medium text-3xl text-black relative">
                   {sCurrentText}
                 </span>
               </div>
             </div>
                      <div className="flex justify-center items-center mt-2">
   <div className="w-full md:w-3/4 h-auto border-0 rounded-lg">
-    <p className="text-base font-light text-center">
+    <p className="text-3xl font-medium text-center">
     We help organizations show up with       <span className='text-[#9a1d20] font-bold'>clarity, creativity, and consciousness.</span> 
       <br></br>
       For more people. In more places. With more purpose.
     </p>
-           
   </div>
+
 </div>
             </div>
-            
-            <div 
+
+
+                  
+            {/* <div 
               
-                className='md:px-16 lg:px-28 px-4 md:py-10 pb-16'
+                className='md:px-10 px-4 py-5 md:py-10 bg-[#F9F6EE] space-y-10'
             >
+               <h2 
+                    className='text-center md:text-4xl text-3xl font-droid text-gray-800'
+                >
+                    (Services)
+                </h2>
                 {data.map((item, key) => (
                     <React.Fragment key={key}>
                         <div 
@@ -277,7 +283,7 @@ const sWordParts = ['TRATEGY ', 'TORY ', 'YSTEMS ', 'OULS '];
 
 
          
-            </div>
+            </div> */}
          
         </div>
     );

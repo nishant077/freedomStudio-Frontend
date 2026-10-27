@@ -23,9 +23,10 @@ const Service = () => {
       </div>
     
     </div>
+    <div className="bg-[#040707]">
     <ServiceStickyCard/>
     <ServiceList/>
-    <Footer/>
+    </div>
     </>
   )
 }

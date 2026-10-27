@@ -37,7 +37,7 @@ const Connect = () => {
       ...prev,
       [name]: value
     }));
-    
+
     if (errors[name]) {
       setErrors(prev => ({
         ...prev,
@@ -45,71 +45,98 @@ const Connect = () => {
       }));
     }
   };
-   const validateForm = () => {
+  const validateForm = () => {
     const newErrors = {};
-    
+
     if (!formData.firstName.trim()) newErrors.firstName = 'First name is required';
     if (!formData.lastName.trim()) newErrors.lastName = 'Last name is required';
-    
+
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = 'Please enter a valid email';
     }
-    
+
     if (formData.contactNumber && !/^[0-9+\- ]+$/.test(formData.contactNumber)) {
       newErrors.contactNumber = 'Please enter a valid phone number';
     }
-    
+
     if (!formData.message.trim()) newErrors.message = 'Message is required';
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (validateForm()) {
       setIsSubmitting(true);
-      
-      setTimeout(() => {
-        console.log('Form submitted:', formData);
+
+      try {
+        const response = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            // Replace this with your Web3Forms Access Key from https://web3forms.com/
+            access_key: "61482964-0b73-401d-92d0-a104ccf9f74b",
+            name: `${formData.firstName} ${formData.lastName}`,
+            email: formData.email,
+            phone: formData.contactNumber,
+            message: formData.message,
+          }),
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          console.log('Form submitted:', formData);
+          setSubmitSuccess(true);
+
+          setTimeout(() => {
+            setFormData({
+              firstName: '',
+              lastName: '',
+              email: '',
+              contactNumber: '',
+              message: ''
+            });
+            setSubmitSuccess(false);
+          }, 3000);
+        } else {
+          console.error("Form submission failed", result);
+          alert("Something went wrong! Please try again later.");
+        }
+      } catch (error) {
+        console.error("Error submitting form:", error);
+        alert("Something went wrong! Please check your network and try again.");
+      } finally {
         setIsSubmitting(false);
-        setSubmitSuccess(true);
-        
-        setTimeout(() => {
-          setFormData({
-            firstName: '',
-            lastName: '',
-            email: '',
-            contactNumber: '',
-            message: ''
-          });
-          setSubmitSuccess(false);
-        }, 3000);
-      }, 1500);
+      }
     }
   };
-  
+
   return (
     <>
       <div className='bg-[#040707] w-full min-h-screen'>
-        <Navbar/>
+        <Navbar />
         <div className='pt-20 px-4 sm:px-6 md:px-7 lg:px-10 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 items-start'>
-          
+
           {/* Image Section - Hidden on mobile, visible on larger screens */}
           <div className='hidden lg:block sticky top-24'>
-            <img src={group} alt="Team collaboration" className='rounded-md w-full h-auto object-cover'/>
+            <img src={group} alt="Team collaboration" className='rounded-md w-full h-auto object-cover' />
           </div>
-          
+
           {/* Form Section */}
           <div ref={targetRef} className="w-full max-w-2xl mx-auto lg:mx-0">
             <div className=''>
               <div className="text-center mb-6 md:mb-8">
                 <h2 className="text-2xl sm:text-3xl md:text-4xl text-white font-droid">Work With Us</h2>
               </div>
-              
+
               {submitSuccess ? (
                 <div className="p-4 md:p-6 text-center">
                   <div className="px-4 py-3 rounded-lg bg-green-900/30 text-green-300">
@@ -132,7 +159,7 @@ const Connect = () => {
                       />
                       {errors.firstName && <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.firstName}</p>}
                     </div>
-                    
+
                     <div className="relative">
                       <input
                         type="text"
@@ -146,7 +173,7 @@ const Connect = () => {
                       {errors.lastName && <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.lastName}</p>}
                     </div>
                   </div>
-                  
+
                   <div className="relative mt-6 sm:mt-8">
                     <input
                       type="email"
@@ -159,7 +186,7 @@ const Connect = () => {
                     />
                     {errors.email && <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.email}</p>}
                   </div>
-                  
+
                   <div className="relative mt-6 sm:mt-8">
                     <input
                       type="tel"
@@ -167,12 +194,12 @@ const Connect = () => {
                       name="contactNumber"
                       value={formData.contactNumber}
                       onChange={handleChange}
-                      placeholder="Organization Name *"
+                      placeholder="Contact Number *"
                       className={`w-full bg-transparent border-0 border-b-2 ${errors.contactNumber ? 'border-red-500' : 'border-gray-500 focus:border-[#9a1d20]'} text-white placeholder-gray-400 focus:outline-none px-0 py-2 text-sm sm:text-base transition-colors`}
                     />
                     {errors.contactNumber && <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.contactNumber}</p>}
                   </div>
-                  
+
                   <div className="relative mt-6 sm:mt-8">
                     <textarea
                       id="message"
@@ -185,14 +212,13 @@ const Connect = () => {
                     ></textarea>
                     {errors.message && <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.message}</p>}
                   </div>
-                  
+
                   <div className="mt-8 sm:mt-10">
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className={`w-full py-2.5 sm:py-3 px-4 sm:px-6 rounded-md font-medium text-white text-sm sm:text-base ${
-                        isSubmitting ? 'bg-[#9a1d20]/70 cursor-not-allowed' : 'bg-[#9a1d20] hover:bg-[#8a1a1d]'
-                      } transition-all duration-200 flex items-center justify-center shadow-md hover:shadow-lg`}
+                      className={`w-full py-2.5 sm:py-3 px-4 sm:px-6 rounded-md font-medium text-white text-sm sm:text-base ${isSubmitting ? 'bg-[#9a1d20]/70 cursor-not-allowed' : 'bg-[#9a1d20] hover:bg-[#8a1a1d]'
+                        } transition-all duration-200 flex items-center justify-center shadow-md hover:shadow-lg`}
                     >
                       {isSubmitting ? (
                         <>
@@ -207,39 +233,39 @@ const Connect = () => {
                   </div>
                 </form>
               )}
-              
+
               <div className="mt-6 sm:mt-8 md:mt-10 text-center text-gray-300 text-xs sm:text-sm">
                 <p>Let's Work Together</p>
               </div>
             </div>
           </div>
-          
+
           {/* Mobile Image - Visible only on small screens */}
           <div className='lg:hidden mt-8'>
-            <img src={group} alt="Team collaboration" className='rounded-md w-full h-auto object-cover max-h-64 sm:max-h-80 mx-auto'/>
+            <img src={group} alt="Team collaboration" className='rounded-md w-full h-auto object-cover max-h-64 sm:max-h-80 mx-auto' />
           </div>
-          
+
         </div>
 
         {/* Divider Line */}
         <div className='px-4 sm:px-6 md:px-7 lg:px-10 mt-16 md:mt-20'>
           <div className='border-t-[0.5px] border-gray-300'></div>
         </div>
-        
+
         {/* Office Locations Section */}
         <div className='pt-10 md:pt-16 px-4 sm:px-6 md:px-7 lg:px-10 h-auto bg-[#040707]'>
           <div className='bg-[#008080]/40 p-4 sm:p-6 md:p-8 lg:p-10 rounded-md grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8'>
-            
+
             {/* Main Office */}
             <div className=''>
               <div className="p-4 sm:p-6 h-full">
                 <h3 className="text-lg sm:text-xl font-droid text-white mb-3 sm:mb-4">Main Office</h3>
                 <div className="rounded-lg overflow-hidden">
-                  <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d483.3608873371442!2d85.33719106993117!3d27.68694690078486!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1996a8d615f9%3A0xca3d4207589f4c3b!2sMinbhawan%20Marg%2C%20Kathmandu%2044600!5e0!3m2!1sen!2snp!4v1744389136209!5m2!1sen!2snp"  
-                    className="h-[200px] sm:h-[250px] md:h-[280px] lg:h-[300px] w-full" 
-                    allowFullScreen="" 
-                    loading="lazy" 
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d483.3608873371442!2d85.33719106993117!3d27.68694690078486!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1996a8d615f9%3A0xca3d4207589f4c3b!2sMinbhawan%20Marg%2C%20Kathmandu%2044600!5e0!3m2!1sen!2snp!4v1744389136209!5m2!1sen!2snp"
+                    className="h-[200px] sm:h-[250px] md:h-[280px] lg:h-[300px] w-full"
+                    allowFullScreen=""
+                    loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
                     title="Main Office Map"
                   ></iframe>
@@ -255,25 +281,25 @@ const Connect = () => {
               <div className="p-4 sm:p-6 h-full">
                 <h3 className="text-lg sm:text-xl font-droid text-white mb-3 sm:mb-4">Branch</h3>
                 <div className="rounded-lg overflow-hidden">
-                  <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51696.04053151535!2d-79.08049061791272!3d35.922438020524176!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89acc31c216e7ea7%3A0x7f03bae00443e4cb!2sChapel%20Hill%2C%20NC%2C%20USA!5e0!3m2!1sen!2snp!4v1751393749390!5m2!1sen!2snp" 
-                    className="h-[200px] sm:h-[250px] md:h-[280px] lg:h-[300px] w-full" 
-                    allowFullScreen="" 
-                    loading="lazy" 
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3090.06300436404!2d-77.05327141282449!3d38.99726799587579!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b7c8d97d7df8ab%3A0x65b3da06b9a438bc!2s2314%20Ross%20Rd%2C%20Silver%20Spring%2C%20MD%2020910%2C%20USA!5e0!3m2!1sen!2snp!4v1774156364057!5m2!1sen!2snp"
+                    className="h-[200px] sm:h-[250px] md:h-[280px] lg:h-[300px] w-full"
+                    allowFullScreen=""
+                    loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
                     title="Branch Office Map"
                   ></iframe>
                 </div>
                 <div className="mt-3 sm:mt-4 text-white text-sm sm:text-base">
-                  <p className="font-medium">Chapel Hill, North Carolina, USA</p>
+                  <p className="font-medium">2314 Ross Rd, Silver Spring, Maryland 20910, USA</p>
                 </div>
               </div>
             </div>
-            
+
           </div>
         </div>
-        
-        <Footer/>
+
+        <Footer />
       </div>
     </>
   )

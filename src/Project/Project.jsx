@@ -1,10 +1,13 @@
 import React from 'react'
 import AnimatedGradientBackground from '../component/AnimatedGradientBackground'
 import ProjectList from './ProjectList'
+import Navbar from '../Navigation/Navbar'
+import Footer from '../component/Footer'
 
 const Project = () => {
   return (
     <>
+     <Navbar/>
      <div className="relative w-full h-screen overflow-hidden">
       <AnimatedGradientBackground
         Breathing={true}

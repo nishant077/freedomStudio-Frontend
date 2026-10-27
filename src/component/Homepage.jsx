@@ -1,26 +1,25 @@
-import {React, useRef, useState, useEffect} from 'react';
+import { React, useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Designed from './Designed';
 import './Font.css';
 import Footer from './Footer';
 import OurWork from './OurWork';
 import Navbar from '../Navigation/Navbar';
-import Homepagevideo from '../assets/hero video.mp4'
-import HomePageMap from './HomePageMap';
+import Homepagevideo from '../assets/HeroSectionVideo.mp4'
 import KeyImpact from './KeyImpact';
 import Expertise from './Expertise';
-import FeedbackForm from '../About/FeedbackForm';
 import AnimatedVideos from './AnimatedVideos';
+import HomeServices from './HomeServices';
 
 const Homepage = () => {
   const headline = "Freedom Studio is a civic media agency that offers strategic, creative, digital support to grassroots organizations worldwide. "
-  
+
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
   });
-  
+
   // Typewriter animation states
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [currentText, setCurrentText] = useState('');
@@ -32,7 +31,7 @@ const Homepage = () => {
 
   useEffect(() => {
     let timeout;
-    
+
     if (isDeleting) {
       // Deleting text
       if (currentText.length > 0) {
@@ -62,62 +61,76 @@ const Homepage = () => {
   }, [currentText, currentWordIndex, isDeleting, words]);
 
   // First text appears (0-0.3), stays (0.3-0.5), disappears (0.5-0.7)
-  const firstHeadlineOpacity = useTransform(scrollYProgress, 
+  const firstHeadlineOpacity = useTransform(scrollYProgress,
     [0, 0.3, 0.5, 0.7],
-    [0, 1, 1, 0]  
+    [0, 1, 1, 0]
   );
-  
-  const firstHeadlineY = useTransform(scrollYProgress, 
+
+  const firstHeadlineY = useTransform(scrollYProgress,
     [0, 0.4],
     [100, 0]
   );
-  
+
   // Second text only appears after first is completely gone (starts at 0.7)
-  const paragraphOpacity = useTransform(scrollYProgress, 
+  const paragraphOpacity = useTransform(scrollYProgress,
     [0.7, 0.9],
     [0, 1]
   );
-  
-  const paragraphY = useTransform(scrollYProgress, 
+
+  const paragraphY = useTransform(scrollYProgress,
     [0.7, 0.9],
     [100, 0]
   );
-  
+
   // Video animation starts after second text appears
-  const videoY = useTransform(scrollYProgress, 
-    [0.9, 1], 
+  const videoY = useTransform(scrollYProgress,
+    [0.9, 1],
     [0, -200]
   );
-  
-  const videoOpacity = useTransform(scrollYProgress, 
-    [0.9, 1], 
+
+  const videoOpacity = useTransform(scrollYProgress,
+    [0.9, 1],
     [1, 0.8]
   );
+
+  // Animate a subtle box shadow/glow on the video that disappears when scrolled down
+  const videoShadow = useTransform(scrollYProgress, [0, 0.4], [
+    "0px 0px 40px rgba(255, 255, 255, 0.15)",
+    "0px 0px 0px rgba(255, 255, 255, 0)"
+  ]);
 
   return (
     <>
       <div className="relative h-[300vh] bg-black" ref={containerRef}>
         {/* Video background */}
-        <motion.div 
+        <motion.div
           className="fixed top-0 left-0 w-full h-screen overflow-hidden"
           style={{
             y: videoY,
             opacity: videoOpacity
           }}
         >
-          <video
+          <motion.video
             autoPlay
             loop
             muted
             playsInline
             className="w-full h-full object-cover"
+            style={{
+              boxShadow: videoShadow
+            }}
           >
             <source src={Homepagevideo} type="video/mp4" />
-          </video>
+          </motion.video>
+          {/* Subtle dark overlay when video is full screen to improve readability of potential sticky navs */}
+          <motion.div
+            className="absolute inset-0 bg-black pointer-events-none"
+            style={{ opacity: useTransform(scrollYProgress, [0.8, 1], [0, 0.6]) }}
+          />
         </motion.div>
 
-        {/* First headline - appears first */}
-        <motion.div 
+        {/* First headline - refined typography and gradients */}
+        <motion.div
           className="fixed top-0 left-0 w-full h-screen flex flex-col items-center justify-center pointer-events-none"
           style={{
             opacity: firstHeadlineOpacity,
@@ -125,15 +138,28 @@ const Homepage = () => {
             transition: "opacity 0.5s ease-out"
           }}
         >
-          <h1 className="text-white text-4xl md:text-7xl font-droid text-center px-4 leading-tight">
-            When Creativity 
+          <h1 className="text-5xl md:text-8xl font-droid text-center px-4 leading-tight tracking-tight text-white drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)]">
+            When Creativity
             <br />
-            Meets <span className="inline-block font-droid">C{currentText}</span>
+            <span className="text-5xl md:text-8xl font-droid text-center px-4 leading-tight tracking-tight text-white drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)]">
+              Meets C{currentText}
+            </span>
           </h1>
         </motion.div>
 
+        {/* Animated Scroll Indicator */}
+        <motion.div
+          className="fixed left-0 right-0 bottom-10 z-0 flex flex-col items-center pointer-events-none"
+          style={{ opacity: firstHeadlineOpacity }}
+          animate={{ y: [0, 10, 0] }}
+          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+        >
+          <span className="text-xs tracking-[0.3em] text-gray-400 uppercase mb-3 font-semibold">Scroll</span>
+          <div className="w-[1px] h-12 bg-gradient-to-b from-gray-400 to-transparent"></div>
+        </motion.div>
+
         {/* Paragraph text - appears only after first is gone */}
-        <motion.div 
+        <motion.div
           className="fixed top-0 left-0 w-full h-screen flex flex-col items-center justify-center pointer-events-none px-8"
           style={{
             opacity: paragraphOpacity,
@@ -141,22 +167,22 @@ const Homepage = () => {
             transition: "all 0.5s ease-out"
           }}
         >
-          <p className="text-white text-lg md:text-2xl text-center max-w-4xl leading-relaxed">
+          <p className="text-white text-lg md:text-3xl text-center max-w-2xl leading-relaxed drop-shadow-md">
             {headline}
           </p>
         </motion.div>
       </div>
 
-      <Navbar/>
+      <Navbar />
 
       <div className="relative z-10 bg-black">
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
           viewport={{ margin: "-100px" }}
-          className='bg-[#9A1D20] w-full h-10'
-        ></motion.div>
+          className='w-full h-10'
+        ></motion.div> */}
 
         {/* <div className='section2 bg-black w-full py-16 px-6 md:px-36'>
           <motion.h2 
@@ -174,13 +200,14 @@ const Homepage = () => {
             </a>
           </div>
         </div> */}
-        
-        <Expertise/>
-        <KeyImpact/>
-        <Designed />
-        <AnimatedVideos/>
-        <OurWork/>
-        <Footer/>
+
+        <Expertise />
+         <HomeServices/>
+            <Designed />
+        <KeyImpact />
+        <AnimatedVideos />
+        <OurWork />
+        <Footer />
       </div>
     </>
   );

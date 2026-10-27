@@ -8,13 +8,15 @@ import service2 from '../assets/lgbtq.jpg'
 import service3 from '../assets/peaceconnect.jpg'
 import service4 from '../assets/artlord.jpg'
 import service5 from '../assets/democracy.jpg'
-import service6 from '../assets/problem with Partnership.jpg'
+import service6 from '../assets/problem with Partnership.png'
 import service7 from '../assets/TooSoutherntobefunded.png'
 // import service3 from ''
 // import service4 from ''
 // import service5 from ''
 // import service6 from ''
 import './Service.css'
+import Footer from '../component/Footer'
+
 
 const ServiceList = () => {
   const [selectedProject, setSelectedProject] = useState(null)
@@ -202,8 +204,8 @@ const ServiceList = () => {
 
 
   return (
-    <div className='md:pt-20 pt-10 px-10 space-y-5 bg-[#040707] min-h-screen'>
-       <h2 className='md:text-3xl text-2xl font-bold uppercase text-white font-droid'>(Services)</h2> 
+    <div className=' py-10 px-10 space-y-5 bg-[#F9F6EE] min-h-screen'>
+       <h2 className='md:text-3xl text-2xl font-bold uppercase text-black font-droid'>(Services)</h2> 
        <section className='bg-[#008080]/40 p-10 rounded-md'>
      
         <div className="projects ">
@@ -359,6 +361,7 @@ const ServiceList = () => {
 )}
 </section>
 
+     <Footer/>
     </div>
   )
 }
